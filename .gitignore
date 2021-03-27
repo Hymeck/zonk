@@ -1,3 +1,10 @@
+# CMake
+cmake-build-debug/
+
+# JetBrains
+.idea/
+*.sln.iml
+
 # Prerequisites
 *.d
 
