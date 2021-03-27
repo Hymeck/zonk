@@ -21,11 +21,11 @@ struct dices
 typedef struct dices dices_t;
 
 
-typedef union eval_table
+typedef union dice_table
 {
     byte dices[DICE_COUNT]; // 6 bytes
     uint64_t dices_state; // 8 bytes
-} etable_t; // so size of memory is 8 bytes
+} dtable_t; // so size of memory is 8 bytes
 
 
 void free_dices(dices_t* dices);
@@ -43,13 +43,13 @@ int evaluate_points(dices_t* dices);
 
 int main(int argc, char* argv[])
 {
-    if (argc != 7)
+    if (argc < 2)
     {
-        printf("Usage:\nzonk dice1 dice2 dice3 dice4 dice5 dice6\n");
+        printf("Usage:\nzonk dice...\n");
         exit(EXIT_FAILURE);
     }
 
-    byte size = DICE_COUNT;
+    byte size = argc - 1;
     byte* src = malloc(sizeof(byte) * size);
 
     for (int i = 0; i < size; i++)
@@ -59,17 +59,21 @@ int main(int argc, char* argv[])
     dices->len = size;
     dices->arr = src;
 
-    game_t game = init_game(4000, 2);
-    print_game(&game);
+//    game_t game = init_game(4000, 2);
+//    print_game(&game);
 
-    //    roll_dices(dices);
+//        roll_dices(dices);
     print_dices(dices);
 
     int value = evaluate_points(dices);
-    if (value < 0)
-        printf("Invalid combinations\n");
-    else
-        printf("%d points", value);
+//    if (value < 0)
+//    {
+//        printf("Invalid combinations\n");
+//    }
+//    else
+//    {
+//        printf("%d points", value);
+//    }
 
     free_dices(dices);
     return EXIT_SUCCESS;
@@ -203,38 +207,33 @@ int evaluate_points(dices_t* dices)
     // 2, 3, 4, 5, 6 = 750;
     // 1, 2, 3, 4, 5, 6 = 1500;
 
-    etable_t etable = {0};
+    dtable_t etable = {0};
     // fill table of each dice entrance
     for (byte i = 0; i < dices->len; i++)
     {
         etable.dices[dices->arr[i] - 1]++;
     }
 
-    // or just
-    // uint64_t value = etable.dices_state
-    uint64_t value = *(uint64_t*) (&etable);
-
     // 1103823438081 - 1 2 3 4 5 6
     // in binary 10000000 10000000 10000000 10000000 100000001
-    if (value == 1103823438081)
+    // +---+ +---+ +---+ +---+ +---+ +---+
+    // | 1 | | 1 | | 1 | | 1 | | 1 | | 1 |
+    // +---+ +---+ +---+ +---+ +---+ +---+
+
+    for (byte i = 0; i < DICE_COUNT; i++)
+    {
+        printf("%d ", etable.dices[i]);
+    }
+
+    printf("\n%lu\n", etable.dices_state);
+
+    if (etable.dices_state == 1103823438081)
     {
         return 1500;
     }
 
-    //    byte ones = etable.dices[0];
-    //    byte twos = etable.dices[1];
-    //    byte threes = etable.dices[2];
-    //    byte fours = etable.dices[3];
-    //    byte fives = etable.dices[4];
-    //    byte sixes = etable.dices[5];
+    // todo: other
 
-    //    if (ones + twos + threes + fours + fives == 5)
-    //        return 500;
-
-    for (int i = 0; i < DICE_COUNT; i++)
-        printf("%d ", etable.dices[i]);
-
-    printf("\n");
 
     return -1;
 }
