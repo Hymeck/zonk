@@ -10,6 +10,9 @@ struct dices
 };
 typedef struct dices dices_t;
 
+
+
+
 dices_t* alloc_dices(byte dice_count);
 void roll_dices(dices_t* dices);
 void free_dices(dices_t* dices);
