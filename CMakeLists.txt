@@ -6,4 +6,4 @@ set(CMAKE_C_STANDARD 11)
 include_directories(src)
 
 add_executable(zonk
-        src/client.console/main.c src/core/state.c src/core/state.h)
+        src/client.console/main.c src/core/score.c src/core/score.h src/core/shared.h src/core/dice.c src/core/dice.h src/core/zonk.h src/client.console/presenter.c src/client.console/presenter.h)
