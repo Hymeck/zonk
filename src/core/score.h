@@ -9,12 +9,6 @@ typedef union dice_table
     uint64_t dices_state; // 8 bytes
 } dtable_t; // so size of memory is 8 bytes
 
-typedef struct dice
-{
-    byte times_occurred;
-    int (*get_score)();
-} dice_t;
-
 dtable_t* init_dtable();
 void free_dtable(dtable_t* table);
 
