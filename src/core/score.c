@@ -10,6 +10,8 @@ dtable_t* init_dtable()
     return dtable;
 }
 
+int is_empty(dtable_t* table) { return !table->dices_state; }
+
 static void internal_free_dtable(dtable_t* table)
 {
     free(table);

@@ -10,6 +10,7 @@ typedef union dice_table
 } dtable_t; // so size of memory is 8 bytes
 
 dtable_t* init_dtable();
+int is_empty(dtable_t* table);
 void free_dtable(dtable_t* table);
 
 int add_dice(dtable_t* dtable, byte dice_value);

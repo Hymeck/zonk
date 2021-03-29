@@ -1,7 +1,7 @@
 #include "score_evaluation.h"
 
 /// \param dice_value - [1, 6]
-int triple(byte dice_value)
+static inline int triple(byte dice_value)
 {
     return dice_value == 1 ?
            THREE_ONES :
@@ -10,13 +10,12 @@ int triple(byte dice_value)
 
 /// \param dice_value - [1, 6]
 /// \param dice_count - [4, 6]
-int power(byte dice_value, byte dice_count)
+static inline int power(byte dice_value, byte dice_count)
 {
     return triple(dice_value) << (dice_count - 3);
 }
 
-
-int calculate(byte dice_value, byte dice_count)
+static int internal_calculate(byte dice_value, byte dice_count)
 {
     // 1 = 100;
     // 5 = 50;
@@ -38,4 +37,10 @@ int calculate(byte dice_value, byte dice_count)
         return triple(dice_value);
 
     return power(dice_value, dice_count);
+}
+
+int calculate(byte dice_value, byte dice_count)
+{
+    // todo: checks?
+    return internal_calculate(dice_value, dice_count);
 }

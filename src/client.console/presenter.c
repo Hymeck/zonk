@@ -18,13 +18,9 @@ void print_dices(dices_t* dices)
     {
         printf("+---+");
         if (i != len - 1)
-        {
             printf(" ");
-        }
         else
-        {
             printf("\n");
-        }
     }
 
     // middle part
@@ -32,13 +28,9 @@ void print_dices(dices_t* dices)
     {
         printf("| %d |", dices->arr[i]);
         if (i != len - 1)
-        {
             printf(" ");
-        }
         else
-        {
             printf("\n");
-        }
     }
 
     // lower part
@@ -46,12 +38,8 @@ void print_dices(dices_t* dices)
     {
         printf("+---+");
         if (i != len - 1)
-        {
             printf(" ");
-        }
         else
-        {
             printf("\n");
-        }
     }
 }
